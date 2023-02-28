@@ -2,6 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require("body-parser");
+const Sauce = require('./models/Sauce');
+const User = require('./models/User');
 
 const app = express();
 // Utilisation de CORS pour éviter les erreurs de sécurité
