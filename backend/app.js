@@ -6,8 +6,11 @@ const saucesRoutes = require('./routes/sauce');
 const userRoutes = require('./routes/user');
 const path = require('path');
 
-require('dotenv').config();
-const dbUrl = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PW}@${process.env.MONGO_HOST}/${process.env.MONGO_DBNAME}?retryWrites=true&w=majority`;
+const config = require('./config');
+
+
+
+const dbUrl = `mongodb+srv://${config.MONGO_USER}:${config.MONGO_PW}@${config.MONGO_HOST}/${config.MONGO_DBNAME}?retryWrites=true&w=majority`;
 
 mongoose.connect(`${dbUrl}`,
   { useNewUrlParser: true,
@@ -18,8 +21,6 @@ mongoose.connect(`${dbUrl}`,
 const app = express();
 // Utilisation de CORS pour éviter les erreurs de sécurité
 app.use(cors());
-// Middleware pour récupérer les données JSON envoyées dans le corps de la requête avec une limite de taille de 10kb
-
 
 // app.use((req, res, next) => {
 //     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -28,6 +29,7 @@ app.use(cors());
 //     next();
 // });
 
+// Middleware pour récupérer les données JSON envoyées dans le corps de la requête avec une limite de taille de 10kb
 app.use(bodyParser.json({ limit: '10kb' }));
 
 app.use('/api/sauces', saucesRoutes);
