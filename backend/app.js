@@ -1,6 +1,5 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const cors = require('cors');
 const bodyParser = require("body-parser");
 const saucesRoutes = require('./routes/sauce');
 const userRoutes = require('./routes/user');
@@ -9,8 +8,6 @@ const helmet = require('helmet');
 const xml2js = require('xml2js');
 
 const config = require('./config');
-
-
 
 const dbUrl = `mongodb+srv://${config.MONGO_USER}:${config.MONGO_PW}@${config.MONGO_HOST}/${config.MONGO_DBNAME}?retryWrites=true&w=majority`;
 
@@ -21,16 +18,17 @@ mongoose.connect(`${dbUrl}`,
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
 const app = express();
-app.use(helmet());
-// Utilisation de CORS pour éviter les erreurs de sécurité
-app.use(cors());
 
-// app.use((req, res, next) => {
-//     res.setHeader('Access-Control-Allow-Origin', '*');
-//     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
-//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
-//     next();
-// });
+
+// Servir les fichiers statiques dans le dossier "public"
+app.use(express.static('images'));
+
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+    next();
+});
 
 // Configuration du parser XML
 const parser = new xml2js.Parser({
@@ -62,6 +60,9 @@ app.post('/xml', (req, res) => {
 
 // Middleware pour récupérer les données JSON envoyées dans le corps de la requête avec une limite de taille de 10kb
 app.use(bodyParser.json({ limit: '10kb' }));
+
+app.use(helmet());
+app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }));
 
 app.use('/api/sauces', saucesRoutes);
 app.use('/api/auth', userRoutes);
