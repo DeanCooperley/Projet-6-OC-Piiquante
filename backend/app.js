@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const saucesRoutes = require('./routes/sauce');
 const userRoutes = require('./routes/user');
 const path = require('path');
+const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
 const xml2js = require('xml2js');
 
@@ -18,10 +19,6 @@ mongoose.connect(`${dbUrl}`,
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
 const app = express();
-
-
-// Servir les fichiers statiques dans le dossier "public"
-app.use(express.static('images'));
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -63,6 +60,7 @@ app.use(bodyParser.json({ limit: '10kb' }));
 
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }));
+app.use(mongoSanitize()); // Middleware pour protéger contre les injections NoSQL
 
 app.use('/api/sauces', saucesRoutes);
 app.use('/api/auth', userRoutes);
