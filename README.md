@@ -23,7 +23,7 @@ La sécurité de ce projet doit être conforme aux règles RGPD et aux recommand
 ## Vous connecter à votre base de données MongoDB ou en créer une (Gratuit)
 
 - Se connecter à sa base de données pour récupérer le lien de connexion
-- L'inclure dans le fichier app.js dans la partie entre les ` ` de la variable dbUrl
+- L'inclure dans le fichier app.js au niveau de la variable dbUrl
 - Créer un fichier .env et redéfinir les variables d'environnement des fichiers server.js, app.js, auth.js, user.js (controllers)
 
 ## Création d'un répertoire "images" dans le répertoire "backend"
