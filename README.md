@@ -1,4 +1,4 @@
-![Logo du projet Piiquante](banniere_piiquante.png)
+![Logo du projet Piiquante](banniere_piiquante.PNG)
 
 # Projet 6 - OC - Piiquante
 
