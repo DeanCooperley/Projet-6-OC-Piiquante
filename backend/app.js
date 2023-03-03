@@ -32,9 +32,9 @@ app.use((req, res, next) => {
 
 // Configuration du parser XML
 const parser = new xml2js.Parser({
-  explicitEntitites: false,
-  ignoreComments: true,
-  ignoreProcessingInstructions: true
+  explicitEntitites: false, // désactiver l'analyse des entités
+  ignoreComments: true, // ignorer les commentaires
+  ignoreProcessingInstructions: true // ignorer les instructions de traitement
 });
 
 // Route pour traiter les requêtes XML
