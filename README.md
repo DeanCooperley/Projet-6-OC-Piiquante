@@ -26,7 +26,7 @@ La sécurité de ce projet doit être conforme aux règles RGPD et aux recommand
 - L'inclure dans le fichier app.js au niveau de la variable dbUrl
 - Créer un fichier .env et redéfinir les variables d'environnement des fichiers server.js, app.js, auth.js, user.js (controllers)
 
-## Création d'un répertoire "images" dans le répertoire "backend"
+### Création d'un dossier "images" dans le répertoire "backend"
 
 ## Lancement du Frontend
 
